@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RHS Mental Health Portal</title>
-    <link rel="stylesheet" href="template.css">
+    <link rel="stylesheet" href="resources.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -32,7 +32,22 @@
         </section>
         <section id="resources">
             <h2>Resources</h2>
-            <p>Reserve space for resource information here.</p>
+            <button type="button" class="collapsible">Anxiety</button>
+            <div class="content">
+                <p>Lorem ipsum...</p>
+            </div>
+            <button type="button" class="collapsible">Depression</button>
+            <div class="content">
+                <p>Lorem ipsum...</p>
+            </div>
+            <button type="button" class="collapsible">ADHD</button>
+            <div class="content">
+                <p>Lorem ipsum...</p>
+            </div>
+            <button type="button" class="collapsible">Eating Disorders</button>
+            <div class="content">
+                <p>Lorem ipsum...</p>
+            </div>
         </section>
         <section id="counselors">
             <h2>Counselors</h2>
@@ -55,7 +70,23 @@
         </div>
         <p class="copyright">&copy; Girls Who Code & Mental Health Club</p>
     </footer>
-
-    <script src="template.js"></script>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+        </script>
+        
+    <script src="resources.js"></script>
 </body>
 </html>
