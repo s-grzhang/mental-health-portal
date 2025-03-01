@@ -1,123 +1,166 @@
 /* Consistent styles */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #F5F5F3;
-    margin: 0;
-    padding: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: #f5f5f3;
+  margin: 0;
+  padding: 0;
 }
 
 header {
-    background-color: #5F494E;
-    color: #F5F5F3;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    font-family: 'Poppins', sans-serif;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+  background-color: #5f494e;
+  color: #f5f5f3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  font-family: "Poppins", sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .header-left {
-    font-size: 1.5rem;
-    font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .menu a {
-    color: #F5F5F3;
-    text-decoration: none;
-    margin-left: 1.5rem;
-    transition: color 0.3s ease;
+  color: #f5f5f3;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  transition: color 0.3s ease;
 }
 
 .menu a:hover,
 .menu a.active {
-    color: #EECEC1;
+  color: #eecec1;
 }
 
 main {
-    padding: 2rem;
+  padding: 2rem;
 }
 
 footer {
-    background-color: #5F494E;
-    color: #F5F5F3;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    flex-wrap: wrap;
+  background-color: #5f494e;
+  color: #f5f5f3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  flex-wrap: wrap;
 }
 
 .footer-left img {
-    max-height: 40px;
+  max-height: 40px;
 }
 
 .footer-left p,
 .footer-right p,
 .footer-right h3 {
-    margin: 0;
+  margin: 0;
 }
 
 footer .copyright {
-    text-align: center;
-    width: 100%;
-    margin-top: 1rem;
-    font-size: 0.85rem;
+  text-align: center;
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 0.85rem;
 }
 
 /* Mobile styles */
 @media (max-width: 768px) {
-    /* Header adjustments */
-    header {
-        flex-direction: column; /* Stack the header items */
-        text-align: center;
-        padding: 1rem;
-    }
+  /* Header adjustments */
+  header {
+    flex-direction: column; /* Stack the header items */
+    text-align: center;
+    padding: 1rem;
+  }
 
-    .menu {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 0.5rem;
-    }
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
 
-    .menu a {
-        margin: 0.5rem; /* Adjust spacing for links */
-        font-size: 1rem; /* Slightly smaller font */
-    }
+  .menu a {
+    margin: 0.5rem; /* Adjust spacing for links */
+    font-size: 1rem; /* Slightly smaller font */
+  }
 
-    /* Main content adjustments */
-    main {
-        padding: 1rem;
-    }
+  /* Main content adjustments */
+  main {
+    padding: 1rem;
+  }
 
-    section {
-        margin: 1rem 0;
-        padding: 1rem;
-    }
+  section {
+    margin: 1rem 0;
+    padding: 1rem;
+  }
 
-    /* Footer adjustments */
-    footer {
-        flex-direction: column; /* Stack footer items */
-        text-align: center;
-        padding: 1rem;
-    }
+  /* Footer adjustments */
+  footer {
+    flex-direction: column; /* Stack footer items */
+    text-align: center;
+    padding: 1rem;
+  }
 
-    .footer-left,
-    .footer-right {
-        margin-bottom: 1rem; /* Add spacing between items */
-    }
+  .footer-left,
+  .footer-right {
+    margin-bottom: 1rem; /* Add spacing between items */
+  }
 
-    .footer-left img {
-        max-height: 30px; /* Slightly smaller logo */
-    }
+  .footer-left img {
+    max-height: 30px; /* Slightly smaller logo */
+  }
 
-    footer .copyright {
-        margin-top: 0.5rem;
-        font-size: 0.75rem; /* Smaller text size for mobile */
-    }
+  footer .copyright {
+    margin-top: 0.5rem;
+    font-size: 0.75rem; /* Smaller text size for mobile */
+  }
 }
 
 /* Edit below */
+
+/* Hotlines CSS */
+.hotlines {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hotline-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.hotline-contact {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.hotline-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.call-button,
+.message-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #89A8AE;
+  color: white;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.call-button:hover,
+.message-button:hover {
+  background-color: #98b7bd;
+}
+
+/*Hotlines CSS End*/
