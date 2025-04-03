@@ -1,123 +1,281 @@
 /* Consistent styles */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #F5F5F3;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
+    color: #4b4b4b;
+}
+
+:root {
+    --primary-color: #86B3B5; /* Teal color from the prototype */
+    --secondary-color: #8B698E; /* Purple color */
+    --light-bg: #F5F5F5;
+    --dark-text: #4b4b4b;
+    --light-text: #ffffff;
 }
 
 header {
-    background-color: #5F494E;
-    color: #F5F5F3;
+    background-color: #8B698E; /* Purple header from the footer in prototype */
+    color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1rem;
     font-family: 'Poppins', sans-serif;
     position: sticky;
-    top: 0;
+    bottom: 0;
     z-index: 1000;
 }
 
 .header-left {
-    font-size: 1.5rem;
+    font-size: 0.8rem;
     font-weight: bold;
 }
 
+.menu {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    font-size: 0.75rem;
+}
+
 .menu a {
-    color: #F5F5F3;
+    color: #ffffff;
     text-decoration: none;
-    margin-left: 1.5rem;
     transition: color 0.3s ease;
+    white-space: nowrap;
+    text-align: center;
 }
 
 .menu a:hover,
 .menu a.active {
-    color: #EECEC1;
+    color: #f0f0f0;
 }
 
 main {
-    padding: 2rem;
+    padding: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-footer {
-    background-color: #5F494E;
-    color: #F5F5F3;
+h1, h2, h3, h4, h5, h6 {
+    color: #8B698E; /* Purple headings */
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.hero-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin: 0 0 1rem 0;
+    border-radius: 0 0 10px 10px;
+}
+
+.tagline {
+    text-align: center;
+    font-style: italic;
+    margin: 1rem 0;
+    color: #666;
+    font-size: 1.2rem;
+}
+
+/* Hotlines section */
+.hotlines-list {
+    margin: 1.5rem 0;
+}
+
+.hotline-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem;
-    flex-wrap: wrap;
+    margin-bottom: 1rem;
 }
 
-.footer-left img {
-    max-height: 40px;
+.hotline-name {
+    flex: 1;
+    font-weight: 500;
 }
 
-.footer-left p,
-.footer-right p,
-.footer-right h3 {
+.hotline-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #709698;
+}
+
+/* Resources section */
+.resource-dropdown {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.resource-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.resource-content {
+    padding: 1rem;
+    background-color: #f9f9f9;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Counselors section */
+.counselor-list {
+    margin: 1.5rem 0;
+}
+
+.counselor-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.counselor-name {
+    flex: 1;
+    font-size: 0.9rem;
+}
+
+/* Email form */
+.email-form {
+    margin: 2rem 0;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.appointment-context {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 90%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.send-btn {
+    background-color: var(--primary-color);
+    color: white;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* Professionals section */
+.professionals-list {
+    margin: 1.5rem 0;
+}
+
+.professional-item {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.professional-item:last-child {
+    border-bottom: none;
+}
+
+.professional-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.professional-address {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Inspirational message */
+.inspiration {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 2rem 0;
+    font-weight: 600;
+    color: #8B698E; /* Purple */
+}
+
+footer {
+    background-color: #8B698E; /* Purple */
+    color: #ffffff;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.footer-text {
     margin: 0;
 }
 
-footer .copyright {
-    text-align: center;
-    width: 100%;
-    margin-top: 1rem;
-    font-size: 0.85rem;
+.club-info {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-    /* Header adjustments */
-    header {
-        flex-direction: column; /* Stack the header items */
-        text-align: center;
-        padding: 1rem;
-    }
-
-    .menu {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 0.5rem;
-    }
-
-    .menu a {
-        margin: 0.5rem; /* Adjust spacing for links */
-        font-size: 1rem; /* Slightly smaller font */
-    }
-
-    /* Main content adjustments */
+/* Mobile styles - our app is mobile-first */
+@media (min-width: 768px) {
     main {
-        padding: 1rem;
+        padding: 2rem;
     }
-
-    section {
-        margin: 1rem 0;
-        padding: 1rem;
+    
+    .menu {
+        font-size: 0.9rem;
     }
-
-    /* Footer adjustments */
-    footer {
-        flex-direction: column; /* Stack footer items */
-        text-align: center;
-        padding: 1rem;
+    
+    .header-left {
+        font-size: 1rem;
     }
-
-    .footer-left,
-    .footer-right {
-        margin-bottom: 1rem; /* Add spacing between items */
-    }
-
-    .footer-left img {
-        max-height: 30px; /* Slightly smaller logo */
-    }
-
-    footer .copyright {
-        margin-top: 0.5rem;
-        font-size: 0.75rem; /* Smaller text size for mobile */
+    
+    .btn, .hotline-name, .counselor-name {
+        font-size: 1rem;
     }
 }
-
-/* Edit below */

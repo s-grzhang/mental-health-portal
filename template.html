@@ -6,55 +6,248 @@
     <title>RHS Mental Health Portal</title>
     <link rel="stylesheet" href="template.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="header-left">RHS Mental Health Portal</div>
-        <nav class="menu">
-            <a href="#welcome">Welcome</a>
-            <a href="#hotlines">Hotlines</a>
-            <a href="#resources">Resources</a>
-            <a href="#counselors">Counselors</a>
-            <a href="#professionals">Professionals</a>
-        </nav>
-    </header>
-    <!--Edit your feature below-->
     <main>
+        <!-- Welcome/Hero Section -->
         <section id="welcome">
-            <h1>Welcome</h1>
-            <p>Reserve space for welcome text here.</p>
+            <img src="Mental-Health-Image.jpg" alt="Mental health illustration" class="hero-image">
+            <p class="tagline">Your struggles are valid</p>
+            <p class="tagline">Mental health is real</p>
         </section>
+
+        <!-- Hotlines Section -->
         <section id="hotlines">
             <h2>Hotlines</h2>
-            <p>Reserve space for hotline information here.</p>
+            <div class="hotlines-list">
+                <div class="hotline-item">
+                    <div class="hotline-name">Emergency</div>
+                    <div class="hotline-buttons">
+                        <a href="tel:911" class="btn">Call</a>
+                    </div>
+                </div>
+                
+                <div class="hotline-item">
+                    <div class="hotline-name">Suicide</div>
+                    <div class="hotline-buttons">
+                        <a href="tel:988" class="btn">Call</a>
+                    </div>
+                </div>
+                
+                <div class="hotline-item">
+                    <div class="hotline-name">Child Protective Services</div>
+                    <div class="hotline-buttons">
+                        <a href="tel:1-800-422-4453" class="btn">Call</a>
+                        <a href="sms:741741&body=HOME" class="btn">Message</a>
+                    </div>
+                </div>
+                
+                <div class="hotline-item">
+                    <div class="hotline-name">TeenLink Crisis Line</div>
+                    <div class="hotline-buttons">
+                        <a href="tel:1-866-833-6546" class="btn">Call</a>
+                        <a href="sms:741741&body=HOME" class="btn">Message</a>
+                    </div>
+                </div>
+            </div>
         </section>
+
+        <!-- Resources Section -->
         <section id="resources">
             <h2>Resources</h2>
-            <p>Reserve space for resource information here.</p>
+            
+            <div class="resource-dropdown">
+                <div class="resource-header" data-target="anxiety-content">
+                    Anxiety
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="resource-content" id="anxiety-content">
+                    <p>Anxiety is a common and sometimes protective emotion to feel. It becomes an anxiety disorder when anxiety persists & interferes with daily activities. Anxiety disorders should be diagnosed & treated with professional attention.</p>
+                    <ul>
+                        <li>Practice deep breathing exercises</li>
+                        <li>Challenge negative thoughts</li>
+                        <li>Practice grounding exercises</li>
+                        <li>Limit caffeine and alcohol</li>
+                        <li>Maintain a regular sleep schedule</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="resource-dropdown">
+                <div class="resource-header" data-target="depression-content">
+                    Depression
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="resource-content" id="depression-content" style="display: none;">
+                    <p>Depression is more than just feeling sad. It's a mood disorder that causes a constant feeling of sadness and loss of interest for more than two weeks.</p>
+                    <ul>
+                        <li>Reach out to trusted friends or family</li>
+                        <li>Exercise regularly</li>
+                        <li>Maintain a consistent sleep schedule</li>
+                        <li>Eat a healthy diet</li>
+                        <li>Reduce workload & take a break</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="resource-dropdown">
+                <div class="resource-header" data-target="adhd-content">
+                    ADHD
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="resource-content" id="adhd-content" style="display: none;">
+                    <p>Attention-deficit/hyperactivity disorder (ADHD) is a neurodevelopmental disorder that includes attention difficulty, hyperactivity, and impulsiveness. It results from a different wiring of the brain compared to neurotypical individuals. Individuals with ADHD can be exceptionally creative & make connections others cannot, have a delayed sleep schedule, avoid tasks that require sustained mental effort, etc.</p>
+                    <ul>
+                        <li>Break tasks into smaller, manageable steps</li>
+                        <li>Use the Pomodoro technique</li>
+                        <li>Pursue your passions</li>
+                        <li>Get medicated by a psychiatrist</li>
+                        <li>Consider accommodations at school or work</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="resource-dropdown">
+                <div class="resource-header" data-target="eating-disorders-content">
+                    Eating Disorders
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="resource-content" id="eating-disorders-content" style="display: none;">
+                    <p>Eating disorders are serious mental health conditions related to severe and persistent eating behaviors that negatively impact physical health, emotions, and ability to function. There are various types (ex: anorexia nervosa, bulimia nervosa, binge eating disorder), and contrary to popular belief, not all eating disorders include undereating.</p>
+                    <ul>
+                        <li>Seek professional help immediately</li>
+                        <li>Build a support network; stand up to unhelpful comments</li>
+                        <li>Treat yourself to some new clothes in sizes you feel confident in</li>
+                        <li>Try not to look into mirrors or weigh yourself</li>
+                        <li>Write down all the healthy physical changes that are happening</li>
+                    </ul>
+                </div>
+            </div>
         </section>
+
+        <!-- Counselors Section -->
         <section id="counselors">
             <h2>Counselors</h2>
-            <p>Reserve space for counselor information here.</p>
+            
+            <div class="counselor-list">
+                <div class="counselor-item">
+                    <div class="counselor-name">Kimberly Herring (A-Bo)</div>
+                    <a href="#" class="btn">Book an appointment</a>
+                </div>
+                
+                <div class="counselor-item">
+                    <div class="counselor-name">Lindsey Ehrlich (Br-Dr)</div>
+                    <a href="#" class="btn">Book an appointment</a>
+                </div>
+                
+                <div class="counselor-item">
+                    <div class="counselor-name">Wendi Thomas (Du-Gas)</div>
+                    <a href="#" class="btn">Book an appointment</a>
+                </div>
+                
+                <div class="counselor-item">
+                    <div class="counselor-name">Sarah Gray (Gat-Ji)</div>
+                    <a href="#" class="btn">Book an appointment</a>
+                </div>
+                
+                <div class="counselor-item">
+                    <div class="counselor-name">Margaret Kinney (Jo-Le)</div>
+                    <a href="#" class="btn">Book an appointment</a>
+                </div>
+                
+                <div class="counselor-item">
+                    <div class="counselor-name">Katie Bunyard (Li-Men)</div>
+                    <a href="#" class="btn">Book an appointment</a>
+                </div>
+                
+                <div class="counselor-item">
+                    <div class="counselor-name">Ellen Zambrowsky-Huls (Mep-Pes)</div>
+                    <a href="#" class="btn">Book an appointment</a>
+                </div>
+                
+                <div class="counselor-item">
+                    <div class="counselor-name">Kasey Dauenhauer (Pet-Sem)</div>
+                    <a href="#" class="btn">Book an appointment</a>
+                </div>
+                
+                <div class="counselor-item">
+                    <div class="counselor-name">Tara Kapsch (Sen-Tre)</div>
+                    <a href="#" class="btn">Book an appointment</a>
+                </div>
+                
+                <div class="counselor-item">
+                    <div class="counselor-name">JB Magpantay (Tri-Z)</div>
+                    <a href="#" class="btn">Book an appointment</a>
+                </div>
+            </div>
+            
+            <div class="email-form">
+                <h3>Email Your Counselor</h3>
+                <p id="appointment-context" class="appointment-context"></p>
+                
+                <div class="form-group">
+                    <label for="email-to">To:</label>
+                    <input type="email" id="email-to" placeholder="Counselor's email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email-from">From:</label>
+                    <input type="email" id="email-from" placeholder="Your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email-message">Message:</label>
+                    <textarea id="email-message" placeholder="Type here"></textarea>
+                </div>
+                
+                <button class="send-btn">Send</button>
+            </div>
         </section>
+
+        <!-- Professionals Section -->
         <section id="professionals">
             <h2>Professionals</h2>
-            <p>Reserve space for professionals information here.</p>
+            
+            <div class="professionals-list">
+                <div class="professional-item">
+                    <p class="professional-name">Salveo Counseling Center</p>
+                    <p class="professional-address">16150 NE 85th St Suite 121, Redmond, WA 98052</p>
+                </div>
+                
+                <div class="professional-item">
+                    <p class="professional-name">LightHeart Associates Therapists and Psychiatrists</p>
+                    <p class="professional-address">7902 168th Ave NE Suite 101, Redmond, WA 98052</p>
+                </div>
+                
+                <div class="professional-item">
+                    <p class="professional-name">Dayspring Behavioral Health PLLC</p>
+                    <p class="professional-address">195 NE Gilman Blvd #100, Issaquah, WA 98027</p>
+                </div>
+            </div>
+            
+            <p class="inspiration">You've got this!</p>
         </section>
     </main>
 
     <footer>
-        <div class="footer-left">
-            <img src="gwc-logo.png" alt="GWC Logo">
-            <p>D103, Tuesday, 7:30 AM</p>
+        <p class="footer-text">Created by RHS' Girls Who Code and Mental Health Club</p>
+        <div class="club-info">
+            <p>Join Girls Who Code every Tuesday morning in D103</p>
+            <p>Join Mental Health Club every Wednesday in Portable C</p>
         </div>
-        <div class="footer-right">
-            <h3>Mental Health Club</h3>
-            <p>Portable C, Wednesday, 1:30 PM</p>
-        </div>
-        <p class="copyright">&copy; Girls Who Code & Mental Health Club</p>
     </footer>
+
+    <header>
+        <div class="menu">
+            <a href="#hotlines">Hotlines</a>
+            <a href="#resources">Resources</a>
+            <a href="#counselors">Counselors</a>
+            <a href="#professionals">Professionals</a>
+        </div>
+    </header>
 
     <script src="template.js"></script>
 </body>
