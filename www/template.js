@@ -79,7 +79,40 @@ document.querySelectorAll('.resource-header').forEach(header => {
     });
 });
 
-// Email form submission
+// Check if the app is running in an Android WebView
+const isAndroidWebView = /wv/.test(navigator.userAgent) && /Android/.test(navigator.userAgent);
+
+// Enhance hotline call buttons
+document.querySelectorAll('.hotline-buttons .btn').forEach(button => {
+    // Add visual feedback for both call and message buttons
+    button.addEventListener('click', function(e) {
+        // Add visual feedback that the button was clicked
+        this.classList.add('btn-active');
+        setTimeout(() => {
+            this.classList.remove('btn-active');
+        }, 300);
+        
+        // For message buttons, provide extra information
+        if (this.textContent.trim() === 'Message') {
+            // In WebView, we may need to handle this specially
+            if (isAndroidWebView) {
+                // Android WebView - the app should intercept these URLs and handle them
+                console.log("Android WebView SMS intent triggered");
+            } else if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+                // It's not a mobile device, so give more info about texting
+                e.preventDefault();
+                alert('To use the Crisis Text Line:\n\n1. Text HOME to 741741 from your mobile phone\n2. You\'ll receive an automated text asking what\'s going on\n3. A trained crisis counselor will respond shortly');
+            }
+        } else if (this.textContent.trim() === 'Call') {
+            if (isAndroidWebView) {
+                // Android WebView - the app should intercept these URLs and handle them
+                console.log("Android WebView call intent triggered");
+            }
+        }
+    });
+});
+
+// Email form submission for Android integration
 document.getElementById('send-email-btn')?.addEventListener('click', function(e) {
     e.preventDefault();
     
@@ -93,11 +126,18 @@ document.getElementById('send-email-btn')?.addEventListener('click', function(e)
         return;
     }
     
-    // Create a mailto link with the form data
-    const mailtoLink = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('From: ' + from + '\n\n' + message)}`;
-    
-    // Open the mail client
-    window.location.href = mailtoLink;
+    // For Android WebView, we could pass this data to native code
+    if (isAndroidWebView && window.AndroidInterface) {
+        // This is where native Android code could be called
+        // Example: window.AndroidInterface.sendEmail(to, from, subject, message);
+        console.log("Android email intent would be triggered");
+    } else {
+        // Create a mailto link with the form data for regular browsers
+        const mailtoLink = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('From: ' + from + '\n\n' + message)}`;
+        
+        // Open the mail client
+        window.location.href = mailtoLink;
+    }
     
     // Provide feedback to the user
     setTimeout(() => {
@@ -151,28 +191,6 @@ document.querySelectorAll('.counselor-item .btn').forEach(button => {
             setTimeout(() => {
                 document.getElementById('email-from').focus();
             }, 800); // Wait for the scroll to complete
-        }
-    });
-});
-
-// Enhance hotline call buttons
-document.querySelectorAll('.hotline-buttons .btn').forEach(button => {
-    // Add visual feedback for both call and message buttons
-    button.addEventListener('click', function(e) {
-        // Add visual feedback that the button was clicked
-        this.classList.add('btn-active');
-        setTimeout(() => {
-            this.classList.remove('btn-active');
-        }, 300);
-        
-        // For message buttons, provide extra information
-        if (this.textContent.trim() === 'Message') {
-            // Check if it's a mobile device before showing the alert
-            if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
-                // It's not a mobile device, so give more info about texting
-                e.preventDefault();
-                alert('To use the Crisis Text Line:\n\n1. Text HOME to 741741 from your mobile phone\n2. You\'ll receive an automated text asking what\'s going on\n3. A trained crisis counselor will respond shortly');
-            }
         }
     });
 });
