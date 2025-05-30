@@ -92,13 +92,21 @@ document.getElementById('send-email-btn')?.addEventListener('click', function(e)
     
     const toEmail = document.getElementById('email-to').value;
     const fromEmail = document.getElementById('email-from').value;
+    const studentName = document.getElementById('student-name').value;
     const subject = document.getElementById('email-subject').value;
     const messageBody = document.getElementById('email-message').value;
     const appointmentContext = document.getElementById('appointment-context').textContent;
-    const studentName = document.getElementById('student-name').value; // Get the student's name
+    const feedbackElement = document.getElementById('form-feedback-message');
+
+    // Clear previous feedback messages
+    feedbackElement.style.display = 'none';
+    feedbackElement.textContent = '';
+    feedbackElement.className = 'form-feedback'; // Reset classes
 
     if (!toEmail || !fromEmail || !messageBody) {
-        alert('Please fill in all required fields (To, Your Email, Message).');
+        feedbackElement.textContent = 'Please fill in all required fields (To, Your Email, Message).';
+        feedbackElement.classList.add('error');
+        feedbackElement.style.display = 'block';
         return;
     }
 
@@ -107,35 +115,42 @@ document.getElementById('send-email-btn')?.addEventListener('click', function(e)
     sendButton.textContent = 'Sending...';
 
     const templateParams = {
-        to_email: toEmail,               // Will be the counselor's email (or your test email)
-        from_email: fromEmail,         // The student's email address from the form
-        student_name: studentName || 'N/A', // Include student's name, or N/A if empty
-        subject_line: subject,           // The subject from the form
-        message_html: messageBody,       // The message content from the form
-        appointment_info: appointmentContext // e.g., "Booking an appointment with Kimberly Herring"
-        // Add any other parameters your EmailJS template might expect
-        // For example, if your template uses {{from_name}}, you'd add a field for it in HTML and send:
-        // from_name: document.getElementById('your_name_field_id').value,
+        to_email: toEmail,          
+        from_email: fromEmail,        
+        student_name: studentName || 'N/A',
+        subject_line: subject,      
+        message_html: messageBody,    
+        appointment_info: appointmentContext 
     };
 
-    // TODO: Replace 'YOUR_SERVICE_ID_HERE' and 'YOUR_TEMPLATE_ID_HERE' 
-    // with your actual Service ID and Template ID from your EmailJS dashboard.
     const serviceID = 'service_j5mxuzi'; 
     const templateID = 'template_vgv5uy9';
 
     emailjs.send(serviceID, templateID, templateParams)
         .then(function(response) {
            console.log('EmailJS SUCCESS!', response.status, response.text);
-           alert('Your message has been sent successfully!');
-           document.getElementById('counselor-email-form').reset(); // Resets the form, including the new name field
-           document.getElementById('appointment-context').textContent = ''; // Clear context
+           feedbackElement.textContent = 'Your message has been sent successfully!';
+           feedbackElement.classList.add('success');
+           feedbackElement.style.display = 'block';
+           document.getElementById('counselor-email-form').reset();
+           document.getElementById('appointment-context').textContent = ''; 
         }, function(error) {
            console.log('EmailJS FAILED...', error);
-           alert('Failed to send the message. Error: ' + JSON.stringify(error) + '\n\nPlease ensure you have replaced the placeholder User ID, Service ID, and Template ID in the template.js file, and that your EmailJS account is correctly configured.');
+           let errorMessage = 'Failed to send the message. Please try again.';
+           if (serviceID === 'service_j5mxuzi' || templateID === 'template_vgv5uy9') {
+               errorMessage += ' Please ensure EmailJS Service/Template IDs are correctly set in template.js.';
+           }
+           feedbackElement.textContent = errorMessage;
+           feedbackElement.classList.add('error');
+           feedbackElement.style.display = 'block';
         })
         .finally(function() {
             sendButton.disabled = false;
             sendButton.textContent = 'Send Email';
+            // Optionally hide the message after a few seconds
+            setTimeout(() => {
+                feedbackElement.style.display = 'none';
+            }, 5000); // Hide after 5 seconds
         });
 });
 
@@ -143,16 +158,16 @@ document.getElementById('send-email-btn')?.addEventListener('click', function(e)
 const counselorEmails = {
     // For testing, all emails go to your test address
     // Remember to change these back to actual counselor emails for production
-    "Kimberly Herring": "1041602@lwsd.org", // Example: YOUR_TEST_EMAIL@example.com
-    "Lindsey Ehrlich": "1041602@lwsd.org",
-    "Wendi Thomas": "1041602@lwsd.org",
-    "Sarah Gray": "1041602@lwsd.org",
-    "Margaret Kinney": "1041602@lwsd.org",
-    "Katie Bunyard": "1041602@lwsd.org",
-    "Ellen Zambrowsky-Huls": "1041602@lwsd.org",
-    "Kasey Dauenhauer": "1041602@lwsd.org",
-    "Tara Kapsch": "1041602@lwsd.org",
-    "JB Magpantay": "1041602@lwsd.org"
+    "Kimberly Herring": "kiherring@lwsd.org", // Example: YOUR_TEST_EMAIL@example.com
+    "Lindsey Ehrlich": "lehrlich@lwsd.org",
+    "Wendi Thomas": "wthomas@lwsd.org",
+    "Sarah Gray": "sgray@lwsd.org",
+    "Margaret Kinney": "MKinneyKrepel@lwsd.org",
+    "Katie Bunyard": "kbunyard@lwsd.org",
+    "Ellen Zambrowsky-Huls": "ezambrowsky-huls@lwsd.org",
+    "Kasey Dauenhauer": "kdauenhauer@lwsd.org",
+    "Tara Kapsch": "tkapsch@lwsd.org",
+    "JB Magpantay": "jmagpantay@lwsd.org"
 };
 
 document.querySelectorAll('.counselor-item .btn').forEach(button => {
