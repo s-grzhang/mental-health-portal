@@ -164,16 +164,6 @@ document.querySelectorAll('.hotline-buttons .btn').forEach(button => {
         setTimeout(() => {
             this.classList.remove('btn-active');
         }, 300);
-        
-        // For message buttons, provide extra information
-        if (this.textContent.trim() === 'Message') {
-            // Check if it's a mobile device before showing the alert
-            if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
-                // It's not a mobile device, so give more info about texting
-                e.preventDefault();
-                alert('To use the Crisis Text Line:\n\n1. Text HOME to 741741 from your mobile phone\n2. You\'ll receive an automated text asking what\'s going on\n3. A trained crisis counselor will respond shortly');
-            }
-        }
     });
 });
 
