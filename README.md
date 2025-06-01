@@ -9,7 +9,9 @@ Contributing is currently discouraged by people other than the repo's owner. Tes
 
 ## Credits
 Lead developer: Grace Zhang (1041602@lwsd.org)
+
 Hotlines: Emily Ma (1060660@lwsd.org)
+
 Information: Sirjana Kaur (1022187@lwsd.org), Nandika Devarajan (1045154@lwsd.org)
 
 ## License
