@@ -79,86 +79,38 @@ document.querySelectorAll('.resource-header').forEach(header => {
     });
 });
 
-// Initialize EmailJS
-(function(){
-    // TODO: Replace 'YOUR_USER_ID_HERE' with your actual EmailJS User ID (Public Key)
-    // You can find this in your EmailJS account under Integration > API Keys > Public Key
-    emailjs.init("nDbhLPOObC3kiWFgN"); 
-})();
-
-// Email form submission using EmailJS
+// Email form submission
 document.getElementById('send-email-btn')?.addEventListener('click', function(e) {
     e.preventDefault();
     
-    const toEmail = document.getElementById('email-to').value;
-    const fromEmail = document.getElementById('email-from').value;
-    const studentName = document.getElementById('student-name').value;
+    const to = document.getElementById('email-to').value;
+    const from = document.getElementById('email-from').value;
     const subject = document.getElementById('email-subject').value;
-    const messageBody = document.getElementById('email-message').value;
-    const appointmentContext = document.getElementById('appointment-context').textContent;
-    const feedbackElement = document.getElementById('form-feedback-message');
-
-    // Clear previous feedback messages
-    feedbackElement.style.display = 'none';
-    feedbackElement.textContent = '';
-    feedbackElement.className = 'form-feedback'; // Reset classes
-
-    if (!toEmail || !fromEmail || !messageBody) {
-        feedbackElement.textContent = 'Please fill in all required fields (To, Your Email, Message).';
-        feedbackElement.classList.add('error');
-        feedbackElement.style.display = 'block';
+    const message = document.getElementById('email-message').value;
+    
+    if (!to || !from || !message) {
+        alert('Please fill in all required fields');
         return;
     }
-
-    const sendButton = this;
-    sendButton.disabled = true;
-    sendButton.textContent = 'Sending...';
-
-    const templateParams = {
-        to_email: toEmail,          
-        from_email: fromEmail,        
-        student_name: studentName || 'N/A',
-        subject_line: subject,      
-        message_html: messageBody,    
-        appointment_info: appointmentContext 
-    };
-
-    const serviceID = 'service_j5mxuzi'; 
-    const templateID = 'template_vgv5uy9';
-
-    emailjs.send(serviceID, templateID, templateParams)
-        .then(function(response) {
-           console.log('EmailJS SUCCESS!', response.status, response.text);
-           feedbackElement.textContent = 'Your message has been sent successfully!';
-           feedbackElement.classList.add('success');
-           feedbackElement.style.display = 'block';
-           document.getElementById('counselor-email-form').reset();
-           document.getElementById('appointment-context').textContent = ''; 
-        }, function(error) {
-           console.log('EmailJS FAILED...', error);
-           let errorMessage = 'Failed to send the message. Please try again.';
-           if (serviceID === 'service_j5mxuzi' || templateID === 'template_vgv5uy9') {
-               errorMessage += ' Please ensure EmailJS Service/Template IDs are correctly set in template.js.';
-           }
-           feedbackElement.textContent = errorMessage;
-           feedbackElement.classList.add('error');
-           feedbackElement.style.display = 'block';
-        })
-        .finally(function() {
-            sendButton.disabled = false;
-            sendButton.textContent = 'Send Email';
-            // Optionally hide the message after a few seconds
-            setTimeout(() => {
-                feedbackElement.style.display = 'none';
-            }, 5000); // Hide after 5 seconds
-        });
+    
+    // Create a mailto link with the form data
+    const mailtoLink = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('From: ' + from + '\n\n' + message)}`;
+    
+    // Open the mail client
+    window.location.href = mailtoLink;
+    
+    // Provide feedback to the user
+    setTimeout(() => {
+        // Clear the form if the user comes back to the page
+        document.getElementById('email-from').value = '';
+        document.getElementById('email-message').value = '';
+        document.getElementById('appointment-context').textContent = '';
+    }, 1000);
 });
 
-// Handle booking appointment buttons (this populates the 'To' field for the EmailJS function)
+// Handle booking appointment buttons
 const counselorEmails = {
-    // For testing, all emails go to your test address
-    // Remember to change these back to actual counselor emails for production
-    "Kimberly Herring": "kiherring@lwsd.org", // Example: YOUR_TEST_EMAIL@example.com
+    "Kimberly Herring": "kiherring@lwsd.org",
     "Lindsey Ehrlich": "lehrlich@lwsd.org",
     "Wendi Thomas": "wthomas@lwsd.org",
     "Sarah Gray": "sgray@lwsd.org",
@@ -173,25 +125,32 @@ const counselorEmails = {
 document.querySelectorAll('.counselor-item .btn').forEach(button => {
     button.addEventListener('click', function(e) {
         e.preventDefault();
+        
+        // Get the counselor name from the sibling element
         const counselorItem = this.closest('.counselor-item');
         const counselorNameFull = counselorItem.querySelector('.counselor-name').textContent;
-        const counselorName = counselorNameFull.split('(')[0].trim();
-        const emailForm = document.querySelector('.email-form');
         
+        // Extract the base name without the last name range
+        const counselorName = counselorNameFull.split('(')[0].trim();
+        
+        // Find the email form and scroll to it
+        const emailForm = document.querySelector('.email-form');
         emailForm.scrollIntoView({ behavior: 'smooth' });
         
+        // Set the counselor's email in the "To" field
         if (counselorEmails[counselorName]) {
             document.getElementById('email-to').value = counselorEmails[counselorName];
+            
+            // Set the appointment context message
             document.getElementById('appointment-context').textContent = `Booking an appointment with ${counselorName}`;
+            
+            // Update subject with counselor name
             document.getElementById('email-subject').value = `Appointment Request with ${counselorName}`;
+            
+            // Focus on the "From" field since "To" is already filled
             setTimeout(() => {
                 document.getElementById('email-from').focus();
-            }, 500); // Adjusted timeout slightly
-        } else {
-            // Clear fields if counselor not found, though this shouldn't happen with current setup
-            document.getElementById('email-to').value = '';
-            document.getElementById('appointment-context').textContent = 'Please select a counselor first.';
-            document.getElementById('email-subject').value = 'Appointment Request';
+            }, 800); // Wait for the scroll to complete
         }
     });
 });
