@@ -110,16 +110,16 @@ document.getElementById('send-email-btn')?.addEventListener('click', function(e)
 
 // Handle booking appointment buttons
 const counselorEmails = {
-    "Kimberly Herring": /*"kiherring@lwsd.org",*/"1041602@lwsd.org",
-    "Lindsey Ehrlich": /*"lehrlich@lwsd.org",*/"1041602@lwsd.org",
-    "Wendi Thomas": /*"wthomas@lwsd.org",*/"1041602@lwsd.org",
-    "Sarah Gray": /*"sgray@lwsd.org",*/"1041602@lwsd.org",
-    "Margaret Kinney": /*"MKinneyKrepel@lwsd.org",*/"1041602@lwsd.org",
-    "Katie Bunyard": /*"kbunyard@lwsd.org",*/"1041602@lwsd.org",
-    "Ellen Zambrowsky-Huls": /*"ezambrowsky-huls@lwsd.org",*/"1041602@lwsd.org",
-    "Kasey Dauenhauer": /*"kdauenhauer@lwsd.org",*/"1041602@lwsd.org",
-    "Tara Kapsch": /*"tkapsch@lwsd.org",*/"1041602@lwsd.org",
-    "JB Magpantay": /*"jmagpantay@lwsd.org"*/ "1041602@lwsd.org"
+    "Kimberly Herring": "kiherring@lwsd.org",
+    "Lindsey Ehrlich": "lehrlich@lwsd.org",
+    "Wendi Thomas": "wthomas@lwsd.org",
+    "Sarah Gray": "sgray@lwsd.org",
+    "Margaret Kinney": "MKinneyKrepel@lwsd.org",
+    "Katie Bunyard": "kbunyard@lwsd.org",
+    "Ellen Zambrowsky-Huls": "ezambrowsky-huls@lwsd.org",
+    "Kasey Dauenhauer": "kdauenhauer@lwsd.org",
+    "Tara Kapsch": "tkapsch@lwsd.org",
+    "JB Magpantay": "jmagpantay@lwsd.org"
 };
 
 document.querySelectorAll('.counselor-item .btn').forEach(button => {
@@ -164,16 +164,6 @@ document.querySelectorAll('.hotline-buttons .btn').forEach(button => {
         setTimeout(() => {
             this.classList.remove('btn-active');
         }, 300);
-        
-        // For message buttons, provide extra information
-        if (this.textContent.trim() === 'Message') {
-            // Check if it's a mobile device before showing the alert
-            if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
-                // It's not a mobile device, so give more info about texting
-                e.preventDefault();
-                alert('To use the Crisis Text Line:\n\n1. Text HOME to 741741 from your mobile phone\n2. You\'ll receive an automated text asking what\'s going on\n3. A trained crisis counselor will respond shortly');
-            }
-        }
     });
 });
 
