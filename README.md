@@ -4,6 +4,10 @@ RHS Mental Health Portal is the product of the joint effort between Redmond High
 ## Running the Project
 The project is a web app that can be accessed via [Netlify](https://rhs-mental-health-portal.netlify.app/).
 
+## Roadmap
+- Implement rate limit.
+- Make form resistant to SQL Injection, CSRF, XSS, etc.
+
 ## Contributing
 Contributing is currently discouraged by people other than the repo's owner. Testing is highly encouraged. All components of this project can be tested by normal use. The call buttons should enter the digits of each hotline to the Keypad but shouldn't automatically make the call. Upon clicking the "Send Email" button, an email to your counselor should be sent from my personal email, birdsrforever@outlook.com. Please notify me what time you sent an email so I can check that it got through. In addition, Mental Health Club is encouraged to notify counselors of changes, review, revise, & update the information on the app. When you encounter an error, please email 1041602@lwsd.org. In your message, include what you were aiming to accomplish, the deviating result, the section of the app the error occured at, & a screenshot.
 
