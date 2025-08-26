@@ -79,48 +79,128 @@ document.querySelectorAll('.resource-header').forEach(header => {
     });
 });
 
-// Email form submission
+// Initialize EmailJS when config is available
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.AppConfig && window.AppConfig.emailjs.publicKey) {
+        emailjs.init(window.AppConfig.emailjs.publicKey);
+    }
+});
+
+// Email form submission using EmailJS
 document.getElementById('send-email-btn')?.addEventListener('click', function(e) {
     e.preventDefault();
     
-    const to = document.getElementById('email-to').value;
-    const from = document.getElementById('email-from').value;
+    const toEmail = document.getElementById('email-to').value;
+    const fromEmail = document.getElementById('email-from').value;
+    const studentName = document.getElementById('student-name')?.value;
     const subject = document.getElementById('email-subject').value;
-    const message = document.getElementById('email-message').value;
-    
-    if (!to || !from || !message) {
-        alert('Please fill in all required fields');
+    const messageBody = document.getElementById('email-message').value;
+    const appointmentContext = document.getElementById('appointment-context')?.textContent;
+    const feedbackElement = document.getElementById('form-feedback-message');
+
+    // Clear previous feedback messages
+    if (feedbackElement) {
+        feedbackElement.style.display = 'none';
+        feedbackElement.textContent = '';
+        feedbackElement.className = 'form-feedback';
+    }
+
+    if (!toEmail || !fromEmail || !messageBody) {
+        if (feedbackElement) {
+            feedbackElement.textContent = 'Please fill in all required fields (To, Your Email, Message).';
+            feedbackElement.classList.add('error');
+            feedbackElement.style.display = 'block';
+        } else {
+            alert('Please fill in all required fields');
+        }
         return;
     }
-    
-    // Create a mailto link with the form data
-    const mailtoLink = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('From: ' + from + '\n\n' + message)}`;
-    
-    // Open the mail client
-    window.location.href = mailtoLink;
-    
-    // Provide feedback to the user
-    setTimeout(() => {
-        // Clear the form if the user comes back to the page
-        document.getElementById('email-from').value = '';
-        document.getElementById('email-message').value = '';
-        document.getElementById('appointment-context').textContent = '';
-    }, 1000);
+
+    // Check if EmailJS is configured
+    if (!window.AppConfig || !window.AppConfig.emailjs.publicKey) {
+        console.warn('EmailJS not configured, falling back to mailto:');
+        const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('From: ' + fromEmail + '\n\n' + messageBody)}`;
+        window.location.href = mailtoLink;
+        return;
+    }
+
+    const sendButton = this;
+    sendButton.disabled = true;
+    sendButton.textContent = 'Sending...';
+
+    const templateParams = {
+        to_email: toEmail,          
+        from_email: fromEmail,        
+        student_name: studentName || 'N/A',
+        subject_line: subject,      
+        message_html: messageBody,    
+        appointment_info: appointmentContext || ''
+    };
+
+    emailjs.send(window.AppConfig.emailjs.serviceId, window.AppConfig.emailjs.templateId, templateParams)
+        .then(function(response) {
+           console.log('EmailJS SUCCESS!', response.status, response.text);
+           if (feedbackElement) {
+               feedbackElement.textContent = 'Your message has been sent successfully!';
+               feedbackElement.classList.add('success');
+               feedbackElement.style.display = 'block';
+           } else {
+               alert('Your message has been sent successfully!');
+           }
+           document.getElementById('counselor-email-form')?.reset();
+           if (document.getElementById('appointment-context')) {
+               document.getElementById('appointment-context').textContent = '';
+           }
+        }, function(error) {
+           console.log('EmailJS FAILED...', error);
+           const errorMessage = 'Failed to send the message. Please try again.';
+           if (feedbackElement) {
+               feedbackElement.textContent = errorMessage;
+               feedbackElement.classList.add('error');
+               feedbackElement.style.display = 'block';
+           } else {
+               alert(errorMessage);
+           }
+        })
+        .finally(function() {
+            sendButton.disabled = false;
+            sendButton.textContent = 'Send Email';
+            if (feedbackElement) {
+                setTimeout(() => {
+                    feedbackElement.style.display = 'none';
+                }, 5000);
+            }
+        });
 });
 
-// Handle booking appointment buttons
-const counselorEmails = {
-    "Kimberly Herring": "kiherring@lwsd.org",
-    "Lindsey Ehrlich": "lehrlich@lwsd.org",
-    "Wendi Thomas": "wthomas@lwsd.org",
-    "Sarah Gray": "sgray@lwsd.org",
-    "Margaret Kinney": "MKinneyKrepel@lwsd.org",
-    "Katie Bunyard": "kbunyard@lwsd.org",
-    "Ellen Zambrowsky-Huls": "ezambrowsky-huls@lwsd.org",
-    "Kasey Dauenhauer": "kdauenhauer@lwsd.org",
-    "Tara Kapsch": "tkapsch@lwsd.org",
-    "JB Magpantay": "jmagpantay@lwsd.org"
-};
+// Get counselor emails from config or fallback to default
+function getCounselorEmails() {
+    if (window.AppConfig) {
+        if (window.AppConfig.useTestEmail && window.AppConfig.testEmail) {
+            // Use test email for all counselors
+            const testEmails = {};
+            Object.keys(window.AppConfig.counselorEmails).forEach(name => {
+                testEmails[name] = window.AppConfig.testEmail;
+            });
+            return testEmails;
+        }
+        return window.AppConfig.counselorEmails;
+    }
+    
+    // Fallback if config not available
+    return {
+        "Kimberly Herring": "counselor@example.com",
+        "Lindsey Ehrlich": "counselor@example.com",
+        "Wendi Thomas": "counselor@example.com",
+        "Sarah Gray": "counselor@example.com",
+        "Margaret Kinney": "counselor@example.com",
+        "Katie Bunyard": "counselor@example.com",
+        "Ellen Zambrowsky-Huls": "counselor@example.com",
+        "Kasey Dauenhauer": "counselor@example.com",
+        "Tara Kapsch": "counselor@example.com",
+        "JB Magpantay": "counselor@example.com"
+    };
+}
 
 document.querySelectorAll('.counselor-item .btn').forEach(button => {
     button.addEventListener('click', function(e) {
@@ -138,6 +218,7 @@ document.querySelectorAll('.counselor-item .btn').forEach(button => {
         emailForm.scrollIntoView({ behavior: 'smooth' });
         
         // Set the counselor's email in the "To" field
+        const counselorEmails = getCounselorEmails();
         if (counselorEmails[counselorName]) {
             document.getElementById('email-to').value = counselorEmails[counselorName];
             

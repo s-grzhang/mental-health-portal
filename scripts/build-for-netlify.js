@@ -1,0 +1,75 @@
+#!/usr/bin/env node
+
+// Build script for Netlify deployment
+// This script uses environment variables to create the config file and prepare the www folder
+
+const fs = require('fs');
+const path = require('path');
+
+console.log('Building Mental Health Portal for Netlify...');
+
+// Ensure www directory exists
+const wwwDir = path.join(__dirname, '..', 'www');
+const wwwJsDir = path.join(wwwDir, 'js');
+
+if (!fs.existsSync(wwwDir)) {
+    fs.mkdirSync(wwwDir, { recursive: true });
+}
+
+if (!fs.existsSync(wwwJsDir)) {
+    fs.mkdirSync(wwwJsDir, { recursive: true });
+}
+
+// Create config.js from environment variables
+const config = {
+    emailjs: {
+        publicKey: process.env.EMAILJS_PUBLIC_KEY || '',
+        serviceId: process.env.EMAILJS_SERVICE_ID || '',
+        templateId: process.env.EMAILJS_TEMPLATE_ID || ''
+    },
+    counselorEmails: {
+        "Kimberly Herring": "kiherring@lwsd.org",
+        "Lindsey Ehrlich": "lehrlich@lwsd.org",
+        "Wendi Thomas": "wthomas@lwsd.org",
+        "Sarah Gray": "sgray@lwsd.org",
+        "Margaret Kinney": "MKinneyKrepel@lwsd.org",
+        "Katie Bunyard": "kbunyard@lwsd.org",
+        "Ellen Zambrowsky-Huls": "ezambrowsky-huls@lwsd.org",
+        "Kasey Dauenhauer": "kdauenhauer@lwsd.org",
+        "Tara Kapsch": "tkapsch@lwsd.org",
+        "JB Magpantay": "jmagpantay@lwsd.org"
+    },
+    useTestEmail: process.env.USE_TEST_EMAIL === 'true',
+    testEmail: process.env.TEST_EMAIL || ''
+};
+
+// Write config file
+const configContent = `window.AppConfig = ${JSON.stringify(config, null, 2)};`;
+fs.writeFileSync(path.join(wwwJsDir, 'config.js'), configContent);
+
+// Copy other files
+const filesToCopy = [
+    { src: 'template.html', dest: 'index.html' },
+    { src: 'template.css', dest: 'template.css' },
+    { src: 'template.js', dest: 'template.js' },
+    { src: 'Mental-Health-Image.jpg', dest: 'Mental-Health-Image.jpg' },
+    { src: 'gwc-logo.png', dest: 'gwc-logo.png' }
+];
+
+filesToCopy.forEach(file => {
+    const srcPath = path.join(__dirname, '..', file.src);
+    const destPath = path.join(wwwDir, file.dest);
+    
+    if (fs.existsSync(srcPath)) {
+        fs.copyFileSync(srcPath, destPath);
+        console.log(`Copied ${file.src} -> www/${file.dest}`);
+    } else {
+        console.warn(`Warning: ${file.src} not found, skipping...`);
+    }
+});
+
+console.log('Build complete! Config created with environment variables.');
+console.log('EmailJS Public Key:', config.emailjs.publicKey ? 'Set' : 'NOT SET');
+console.log('EmailJS Service ID:', config.emailjs.serviceId ? 'Set' : 'NOT SET');
+console.log('EmailJS Template ID:', config.emailjs.templateId ? 'Set' : 'NOT SET');
+console.log('Use Test Email:', config.useTestEmail);
