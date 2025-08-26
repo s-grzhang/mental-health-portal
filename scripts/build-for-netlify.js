@@ -20,32 +20,47 @@ if (!fs.existsSync(wwwJsDir)) {
     fs.mkdirSync(wwwJsDir, { recursive: true });
 }
 
-// Create config.js from environment variables
-const config = {
-    emailjs: {
-        publicKey: process.env.EMAILJS_PUBLIC_KEY || '',
-        serviceId: process.env.EMAILJS_SERVICE_ID || '',
-        templateId: process.env.EMAILJS_TEMPLATE_ID || ''
-    },
-    counselorEmails: {
-        "Kimberly Herring": "kiherring@lwsd.org",
-        "Lindsey Ehrlich": "lehrlich@lwsd.org",
-        "Wendi Thomas": "wthomas@lwsd.org",
-        "Sarah Gray": "sgray@lwsd.org",
-        "Margaret Kinney": "MKinneyKrepel@lwsd.org",
-        "Katie Bunyard": "kbunyard@lwsd.org",
-        "Ellen Zambrowsky-Huls": "ezambrowsky-huls@lwsd.org",
-        "Kasey Dauenhauer": "kdauenhauer@lwsd.org",
-        "Tara Kapsch": "tkapsch@lwsd.org",
-        "JB Magpantay": "jmagpantay@lwsd.org"
-    },
-    useTestEmail: process.env.USE_TEST_EMAIL === 'true',
-    testEmail: process.env.TEST_EMAIL || ''
-};
+// Create config.js from environment variables (for Netlify) or local config (for development)
+let config;
 
-// Write config file
-const configContent = `window.AppConfig = ${JSON.stringify(config, null, 2)};`;
-fs.writeFileSync(path.join(wwwJsDir, 'config.js'), configContent);
+const localConfigPath = path.join(__dirname, '..', 'js', 'config.js');
+if (fs.existsSync(localConfigPath) && !process.env.NETLIFY) {
+    // Local development - copy the local config
+    console.log('Using local configuration file...');
+    fs.copyFileSync(localConfigPath, path.join(wwwJsDir, 'config.js'));
+    console.log('Local config copied to www/js/config.js');
+    
+    // We still need to copy other files
+    config = { emailjs: { publicKey: 'local', serviceId: 'local', templateId: 'local' } };
+} else {
+    // Netlify deployment - use environment variables
+    console.log('Using environment variables...');
+    config = {
+        emailjs: {
+            publicKey: process.env.EMAILJS_PUBLIC_KEY || '',
+            serviceId: process.env.EMAILJS_SERVICE_ID || '',
+            templateId: process.env.EMAILJS_TEMPLATE_ID || ''
+        },
+        counselorEmails: {
+            "Kimberly Herring": "kiherring@lwsd.org",
+            "Lindsey Ehrlich": "lehrlich@lwsd.org",
+            "Wendi Thomas": "wthomas@lwsd.org",
+            "Sarah Gray": "sgray@lwsd.org",
+            "Margaret Kinney": "MKinneyKrepel@lwsd.org",
+            "Katie Bunyard": "kbunyard@lwsd.org",
+            "Ellen Zambrowsky-Huls": "ezambrowsky-huls@lwsd.org",
+            "Kasey Dauenhauer": "kdauenhauer@lwsd.org",
+            "Tara Kapsch": "tkapsch@lwsd.org",
+            "JB Magpantay": "jmagpantay@lwsd.org"
+        },
+        useTestEmail: process.env.USE_TEST_EMAIL === 'true',
+        testEmail: process.env.TEST_EMAIL || ''
+    };
+    
+    // Write config file for Netlify
+    const configContent = `window.AppConfig = ${JSON.stringify(config, null, 2)};`;
+    fs.writeFileSync(path.join(wwwJsDir, 'config.js'), configContent);
+}
 
 // Copy other files
 const filesToCopy = [
