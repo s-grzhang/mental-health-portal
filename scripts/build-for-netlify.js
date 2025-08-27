@@ -42,16 +42,16 @@ if (fs.existsSync(localConfigPath) && !process.env.NETLIFY) {
             templateId: process.env.EMAILJS_TEMPLATE_ID || ''
         },
         counselorEmails: {
-            "Kimberly Herring": "kiherring@lwsd.org",
-            "Lindsey Ehrlich": "lehrlich@lwsd.org",
-            "Wendi Thomas": "wthomas@lwsd.org",
-            "Sarah Gray": "sgray@lwsd.org",
-            "Margaret Kinney": "MKinneyKrepel@lwsd.org",
-            "Katie Bunyard": "kbunyard@lwsd.org",
-            "Ellen Zambrowsky-Huls": "ezambrowsky-huls@lwsd.org",
-            "Kasey Dauenhauer": "kdauenhauer@lwsd.org",
-            "Tara Kapsch": "tkapsch@lwsd.org",
-            "JB Magpantay": "jmagpantay@lwsd.org"
+            "Kimberly Herring": process.env.COUNSELOR_EMAIL_KIMBERLY || "kiherring@lwsd.org",
+            "Lindsey Ehrlich": process.env.COUNSELOR_EMAIL_LINDSEY || "lehrlich@lwsd.org",
+            "Wendi Thomas": process.env.COUNSELOR_EMAIL_WENDI || "wthomas@lwsd.org",
+            "Sarah Gray": process.env.COUNSELOR_EMAIL_SARAH || "sgray@lwsd.org",
+            "Margaret Kinney": process.env.COUNSELOR_EMAIL_MARGARET || "MKinneyKrepel@lwsd.org",
+            "Katie Bunyard": process.env.COUNSELOR_EMAIL_KATIE || "kbunyard@lwsd.org",
+            "Ellen Zambrowsky-Huls": process.env.COUNSELOR_EMAIL_ELLEN || "ezambrowsky-huls@lwsd.org",
+            "Kasey Dauenhauer": process.env.COUNSELOR_EMAIL_KASEY || "kdauenhauer@lwsd.org",
+            "Tara Kapsch": process.env.COUNSELOR_EMAIL_TARA || "tkapsch@lwsd.org",
+            "JB Magpantay": process.env.COUNSELOR_EMAIL_JB || "jmagpantay@lwsd.org"
         },
         useTestEmail: process.env.USE_TEST_EMAIL === 'true',
         testEmail: process.env.TEST_EMAIL || ''
